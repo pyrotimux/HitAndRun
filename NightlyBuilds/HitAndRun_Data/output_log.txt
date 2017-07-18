@@ -1,0 +1,92 @@
+Initialize engine version: 5.6.1f1 (2860b30f0b54)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: AMD Radeon R9 200 Series (ID=0x6798)
+    Vendor:   ATI
+    VRAM:     3053 MB
+    Driver:   22.19.171.257
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.132 seconds
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\System.dll (this message is harmless)
+desktop: 1600x900 60Hz; virtual: 3200x900 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.445809 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 26f8 -> priority: 1 
+  Thread -> id: fec -> priority: 1 
+  Thread -> id: 11a8 -> priority: 1 
+  Thread -> id: 2208 -> priority: 1 
+The prefab 'player' has multiple NetworkIdentity components. There can only be one NetworkIdentity on a prefab, and it must be on the root object.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.366919 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1199.
+Total: 1.068629 ms (FindLiveObjects: 0.102057 ms CreateObjectMapping: 0.024299 ms MarkObjects: 0.928773 ms  DeleteObjects: 0.013229 ms)
+
+player infected: False
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player(Clone) infected: False
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player(Clone) infected: False
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player(Clone) infected: False
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player(Clone) infected: True
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player(Clone) infected: True
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player(Clone) infected: True
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player(Clone) infected: True
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player infected: True
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+player(Clone) infected: True
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
