@@ -1,0 +1,158 @@
+Initialize engine version: 5.6.1f1 (2860b30f0b54)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: AMD Radeon R9 200 Series (ID=0x6798)
+    Vendor:   ATI
+    VRAM:     3053 MB
+    Driver:   22.19.171.257
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.060 seconds
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\pyro\Documents\HitAndRun\HitAndRun_Data\Managed\System.dll (this message is harmless)
+desktop: 1600x900 60Hz; virtual: 3200x900 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 2.674004 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 427c -> priority: 1 
+  Thread -> id: 4280 -> priority: 1 
+  Thread -> id: 4284 -> priority: 1 
+  Thread -> id: 4278 -> priority: 1 
+MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+MatchMakingClient Destroy :https://mm.unet.unity3d.com/json/reply/DestroyMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 17.065950 ms
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 810.
+Total: 9.338497 ms (FindLiveObjects: 0.092877 ms CreateObjectMapping: 0.060748 ms MarkObjects: 9.153012 ms  DeleteObjects: 0.029699 ms)
+
+MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.602623 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 1337.
+Total: 1.283543 ms (FindLiveObjects: 0.112856 ms CreateObjectMapping: 0.033749 ms MarkObjects: 1.125058 ms  DeleteObjects: 0.011069 ms)
+
+MatchMakingClient Destroy :https://mm.unet.unity3d.com/json/reply/DestroyMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+NullReferenceException: Object reference not set to an instance of an object
+  at pTextMods.LateUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at pTextMods.LateUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at pTextMods.LateUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnloadTime: 0.765428 ms
+
+Unloading 31 unused Assets to reduce memory usage. Loaded Objects now: 1098.
+Total: 1.296233 ms (FindLiveObjects: 0.055888 ms CreateObjectMapping: 0.025379 ms MarkObjects: 1.055130 ms  DeleteObjects: 0.159025 ms)
+
+MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+DontDestroyOnLoad only work for root GameObjects or components on root GameObjects.
+ 
+(Filename:  Line: 462)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.357739 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 1242.
+Total: 1.600244 ms (FindLiveObjects: 0.071817 ms CreateObjectMapping: 0.045898 ms MarkObjects: 1.466868 ms  DeleteObjects: 0.015119 ms)
+
+MatchMakingClient Destroy :https://mm.unet.unity3d.com/json/reply/DestroyMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MatchMakingClient DropConnection :https://mm.unet.unity3d.com/json/reply/DropConnectionRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at pTextMods.LateUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at pTextMods.LateUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at pTextMods.LateUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.411738 ms
+
+Unloading 32 unused Assets to reduce memory usage. Loaded Objects now: 814.
+Total: 1.984174 ms (FindLiveObjects: 0.124196 ms CreateObjectMapping: 0.041038 ms MarkObjects: 1.541656 ms  DeleteObjects: 0.275662 ms)
+

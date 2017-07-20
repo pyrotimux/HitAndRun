@@ -16,6 +16,8 @@ public class pPlayer : NetworkBehaviour {
 
     public Material pmatblue, pmatred, pmatblack, pmatyellow, pmatgreen, pmat;
 
+    public GameObject spawner;
+
     // Use this for initialization
     void Start () {
 		if (isLocalPlayer) {
@@ -60,7 +62,7 @@ public class pPlayer : NetworkBehaviour {
             pPlayer p = col.gameObject.GetComponent<pPlayer>();
             p.infected = true;
         }
-        else if (s.StartsWith("key"))
+        else if (s.StartsWith("key") && !infected)
         {
             NetworkServer.Destroy(col.gameObject);
             haskey = true;
@@ -75,21 +77,30 @@ public class pPlayer : NetworkBehaviour {
             NetworkServer.Destroy(col.gameObject);
         }
 
-        StartCoroutine(checkStatus(1));
+        //StartCoroutine(checkStatus(0.3f));
 
     }
 
-    private IEnumerator checkStatus(float  time)
+    private void LateUpdate()
     {
-        yield return new WaitForSeconds(time);
+        checkStatus();
+    }
 
-        Debug.Log(gameObject.name + " infected: " + infected);
+    //private IEnumerator checkStatus(float  time)
+    public void checkStatus()
+    {
+        //yield return new WaitForSeconds(time);
+
         if (infected)
         {
-            p.haskey = false;
+            if (haskey) {
+                haskey = false;
+                pSpawner pspwn = GameObject.Find("SpawnManager").GetComponent<pSpawner>();
+                pspwn.SpawnKey(transform);
+            }
             Transform o = transform.GetChild(0).GetChild(6);
             o.GetComponent<MeshRenderer>().enabled = true;
-            o.GetComponent<Renderer>().material.color = Color.red;
+            o.GetComponent<Renderer>().material.color = Color.magenta;
 
         } else if (!infected && haskey) {
             Transform o = transform.GetChild(0).GetChild(6);
