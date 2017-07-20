@@ -18,10 +18,14 @@ public class pPlayer : NetworkBehaviour {
 
     public GameObject spawner;
 
+    private pPlayerMove playermoves;
+
     // Use this for initialization
     void Start () {
 		if (isLocalPlayer) {
-			GetComponent<pPlayerMove>().enabled = true;
+			playermoves = GetComponent<pPlayerMove>();
+            playermoves.enabled = true;
+
 			Camera.main.transform.position = this.transform.position - this.transform.forward * 5 + this.transform.up * 2;
 			Camera.main.transform.LookAt (this.transform.position);
 			Camera.main.transform.parent = this.transform;
@@ -67,7 +71,7 @@ public class pPlayer : NetworkBehaviour {
             NetworkServer.Destroy(col.gameObject);
             haskey = true;
         }
-        if (s.StartsWith("infections"))
+        else if (s.StartsWith("infections"))
         {
             NetworkServer.Destroy(col.gameObject);
             infected = true;
@@ -75,6 +79,10 @@ public class pPlayer : NetworkBehaviour {
         else if (s.StartsWith("gatebarrier") && haskey)
         {
             NetworkServer.Destroy(col.gameObject);
+        }
+        else if (s.StartsWith("wingate") && haskey)
+        {
+            Debug.Log("Win");
         }
 
         //StartCoroutine(checkStatus(0.3f));
@@ -101,6 +109,8 @@ public class pPlayer : NetworkBehaviour {
             Transform o = transform.GetChild(0).GetChild(6);
             o.GetComponent<MeshRenderer>().enabled = true;
             o.GetComponent<Renderer>().material.color = Color.magenta;
+            playermoves.speed = 20;
+            playermoves.rotateSpeed = 70;
 
         } else if (!infected && haskey) {
             Transform o = transform.GetChild(0).GetChild(6);

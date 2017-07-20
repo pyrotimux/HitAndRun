@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class pPlayerMove : MonoBehaviour {
-
 	public float speed;
 	public float rotateSpeed;
 

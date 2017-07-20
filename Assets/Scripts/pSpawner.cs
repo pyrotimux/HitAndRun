@@ -38,8 +38,8 @@ public class pSpawner : NetworkBehaviour
         GameObject key = (GameObject)Instantiate(keyprefab, spawn1.position, Quaternion.identity);
         NetworkServer.Spawn(key);
 
-        GameObject infections = (GameObject)Instantiate(infectprefab, infspwn.position, Quaternion.identity);
-        NetworkServer.Spawn(infections);
+//        GameObject infections = (GameObject)Instantiate(infectprefab, infspwn.position, Quaternion.identity);
+//        NetworkServer.Spawn(infections);
 
         //GameObject key2 = (GameObject)Instantiate(keyprefab, spawn2.position, Quaternion.identity);
         //NetworkServer.Spawn(key2);
