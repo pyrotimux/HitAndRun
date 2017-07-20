@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class pPlayer : NetworkBehaviour {
 
@@ -12,7 +13,7 @@ public class pPlayer : NetworkBehaviour {
     public Color pcolor = Color.red;
 
     [SyncVar]
-    public bool haskey = false, infected = false;
+    public bool haskey = false, infected = false, gatereached = false;
 
     public Material pmatblue, pmatred, pmatblack, pmatyellow, pmatgreen, pmat;
 
@@ -82,7 +83,13 @@ public class pPlayer : NetworkBehaviour {
         }
         else if (s.StartsWith("wingate") && haskey)
         {
-            Debug.Log("Win");
+            gatereached = true;
+            pGameMgr.win = true;
+
+            if(isLocalPlayer){ playermoves.enabled = false; }
+            transform.GetComponent<Renderer>().enabled = false;
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
         }
 
         //StartCoroutine(checkStatus(0.3f));

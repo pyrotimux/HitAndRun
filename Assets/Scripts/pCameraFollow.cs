@@ -8,12 +8,12 @@ public class pCameraFollow : MonoBehaviour {
 
 	private Vector3 offset;
 
-	// Use this for initialization
+	 
 	void Start () {
 		offset = new Vector3(-0.12f,1.88f,-3.34f);
 	}
 	
-	// Update is called once per frame
+	
 	void Update () {
 		//transform.position = player.transform.position + offset;
 		transform.position = Vector3.Lerp(transform.position, player.position + offset, Time.deltaTime * smooth);
