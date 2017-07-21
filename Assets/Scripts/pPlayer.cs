@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class pPlayer : NetworkBehaviour {
 
@@ -13,21 +13,28 @@ public class pPlayer : NetworkBehaviour {
     public Color pcolor = Color.red;
 
     [SyncVar]
-    public bool haskey = false, infected = false, gatereached = false;
+    public bool haskey = false;
+
+    [SyncVar]
+    public bool infected = false;
+
+    [SyncVar]
+    public bool gaterch = false;
 
     public Material pmatblue, pmatred, pmatblack, pmatyellow, pmatgreen, pmat;
-
-    public GameObject spawner;
-
+    
     private pPlayerMove playermoves;
+
+    
 
     // Use this for initialization
     void Start () {
-		if (isLocalPlayer) {
+        
+        if (isLocalPlayer) {
 			playermoves = GetComponent<pPlayerMove>();
             playermoves.enabled = true;
 
-			Camera.main.transform.position = this.transform.position - this.transform.forward * 5 + this.transform.up * 2;
+            Camera.main.transform.position = this.transform.position - this.transform.forward * 5 + this.transform.up * 1;
 			Camera.main.transform.LookAt (this.transform.position);
 			Camera.main.transform.parent = this.transform;
 		}
@@ -57,8 +64,8 @@ public class pPlayer : NetworkBehaviour {
         //foreach (Renderer r in rends)
         //    r.material.color = pcolor;
     }
-    
-    
+
+
     void OnCollisionEnter(Collision col)
     {
         string s = col.gameObject.name;
@@ -66,28 +73,37 @@ public class pPlayer : NetworkBehaviour {
         if (s.StartsWith("player") && infected) {
             pPlayer p = col.gameObject.GetComponent<pPlayer>();
             p.infected = true;
+            p.CmdPlayerInfected();
         }
         else if (s.StartsWith("key") && !infected)
         {
             NetworkServer.Destroy(col.gameObject);
-            haskey = true;
+            CmdPlayerGotKey();
+            
         }
         else if (s.StartsWith("infections"))
         {
             NetworkServer.Destroy(col.gameObject);
-            infected = true;
+            CmdPlayerInfected();
         }
         else if (s.StartsWith("gatebarrier") && haskey)
         {
             NetworkServer.Destroy(col.gameObject);
         }
-        else if (s.StartsWith("wingate") && haskey)
+        else if (s.StartsWith("wingate") && !infected)
         {
-            gatereached = true;
-            pGameMgr.win = true;
+            if(isLocalPlayer){
+                playermoves.go = true;
+                //StartCoroutine(winscreen(1));
+                winscreen();
+            }
 
-            if(isLocalPlayer){ playermoves.enabled = false; }
-            transform.GetComponent<Renderer>().enabled = false;
+            
+
+            CmdPlayerReachGate();
+
+            StartCoroutine(moveLvl(2));
+
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
         }
@@ -100,8 +116,9 @@ public class pPlayer : NetworkBehaviour {
     {
         checkStatus();
     }
+    
 
-    //private IEnumerator checkStatus(float  time)
+
     public void checkStatus()
     {
         //yield return new WaitForSeconds(time);
@@ -110,14 +127,13 @@ public class pPlayer : NetworkBehaviour {
         {
             if (haskey) {
                 haskey = false;
+                CmdPlayerDropKey();
                 pSpawner pspwn = GameObject.Find("SpawnManager").GetComponent<pSpawner>();
                 pspwn.SpawnKey(transform);
             }
             Transform o = transform.GetChild(0).GetChild(6);
             o.GetComponent<MeshRenderer>().enabled = true;
             o.GetComponent<Renderer>().material.color = Color.magenta;
-            playermoves.speed = 20;
-            playermoves.rotateSpeed = 70;
 
         } else if (!infected && haskey) {
             Transform o = transform.GetChild(0).GetChild(6);
@@ -127,5 +143,46 @@ public class pPlayer : NetworkBehaviour {
             
     }
 
+
+    [Server]
+    void CmdPlayerGotKey()
+    {
+       haskey = true;
+    }
+
+    [Server]
+    void CmdPlayerDropKey()
+    {
+        haskey = false;
+    }
+
+    [Server]
+    void CmdPlayerInfected() {
+        infected = true;
+    }
+
+    [Server]
+    void CmdPlayerReachGate()
+    {
+        gaterch = true;
+    }
+
+    public IEnumerator moveLvl(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameObject t1 = GameObject.Find("t1");
+        transform.position = t1.transform.position;
+    }
+
+    //public IEnumerator winscreen(float time)
+    public void winscreen()
+    {
+        //yield return new WaitForSeconds(time);
+        GameObject canvas = GameObject.Find("Canvas");
+        GameObject endscr = canvas.transform.GetChild(0).gameObject;
+        endscr.SetActive(true);
+        Transform endtxt = endscr.transform.GetChild(0);
+        if (gaterch) endtxt.GetComponent<Text>().text = "You Win!";
+    }
 
 }

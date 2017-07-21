@@ -11,13 +11,6 @@ public class pSpinEarth : MonoBehaviour
     public float direction = 1f;
     public float directionChangeSpeed = 2f;
 
-    void Start() {
-        string s = "You Lose!";
-        if (pGameMgr.win){ s = "You Win!"; }
-
-        GameObject.Find("state").GetComponent<TextMesh>().text = s;
-    }
-
     void Update()
     {
         
