@@ -15,7 +15,6 @@ public class pCameraFollow : MonoBehaviour {
 	
 	
 	void Update () {
-		//transform.position = player.transform.position + offset;
 		transform.position = Vector3.Lerp(transform.position, player.position + offset, Time.deltaTime * smooth);
 		transform.rotation = player.rotation;
 		transform.LookAt (player.position);

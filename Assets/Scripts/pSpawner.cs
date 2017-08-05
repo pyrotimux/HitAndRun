@@ -33,15 +33,18 @@ public class pSpawner : NetworkBehaviour
     }
 
     [Command]
+    void CmdInfectSpwn()
+    {
+        GameObject infection = (GameObject)Instantiate(infectprefab, new Vector3(infspwn.position.x, 10, infspwn.position.z), Quaternion.identity);
+        NetworkServer.Spawn(infection);
+    }
+
+    [Command]
     void CmdSpawn()
     {
-        GameObject key = (GameObject)Instantiate(keyprefab, spawn1.position, Quaternion.identity);
-        NetworkServer.Spawn(key);
-
-        GameObject infections = (GameObject)Instantiate(infectprefab, infspwn.position, Quaternion.identity);
-        NetworkServer.Spawn(infections);
-
-        //GameObject key2 = (GameObject)Instantiate(keyprefab, spawn2.position, Quaternion.identity);
-        //NetworkServer.Spawn(key2);
+        lkeypos = spawn1;
+        CmdKeySpwn();
+        CmdInfectSpwn();
+        
     }
 }
