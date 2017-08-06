@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Prototype.NetworkLobby;
 using UnityEngine.Networking;
+using HitAndRun.Proto;
 
 public class pLobbyHook : LobbyHook {
 

@@ -4,63 +4,71 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class pGameMgr : NetworkBehaviour
+
+namespace HitAndRun.Proto
 {
-    public bool gameover = false;
-    private int totinfected = 0, numplayers = 0;
-    public GameObject endscr;
-    private bool hello = true;
-
-    private GameObject pl;
-
-    public bool revenge = false;
-
-    public IEnumerator delayStart(float time)
+    public class pGameMgr : NetworkBehaviour
     {
-        yield return new WaitForSeconds(time);
-        hello = false;
-    }
+        public bool gameover = false;
+        private int totinfected = 0, numplayers = 0;
+        public GameObject endscr;
+        private bool hello = true;
 
-    void LateUpdate () {
-        if (hello) {
-            StartCoroutine(delayStart(2)); return;
+        private GameObject pl;
+
+        public bool revenge = false;
+
+        public IEnumerator delayStart(float time)
+        {
+            yield return new WaitForSeconds(time);
+            hello = false;
         }
-        totinfected = 0;
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        numplayers = players.Length;
-        foreach (GameObject p in players) {
-            pPlayer scr = p.GetComponent<pPlayer>();
-            
-            if (!scr.infected && !scr.gaterch)
+
+        void LateUpdate()
+        {
+            if (hello)
             {
-                gameover = false;
-                break;
+                StartCoroutine(delayStart(2)); return;
             }
-
-            
-
-            if(scr.infected) totinfected++;
-            gameover = true; 
-
-        }
-        
-        if (gameover == true) {
-            if (numplayers == totinfected) { revenge = true; }
+            totinfected = 0;
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            numplayers = players.Length;
             foreach (GameObject p in players)
             {
-                p.GetComponent<pPlayerMove>().go = true;
-                
+                pPlayer scr = p.GetComponent<pPlayer>();
+
+                if (!scr.infected && !scr.gaterch)
+                {
+                    gameover = false;
+                    break;
+                }
+
+
+
+                if (scr.infected) totinfected++;
+                gameover = true;
+
             }
 
-            endscr.SetActive(true);
-            Transform endtxt = endscr.transform.GetChild(0);
-            if (revenge) endtxt.GetComponent<Text>().text = "Revenge Success!";
-            else endtxt.GetComponent<Text>().text = "Revenge Failed!";
-            
-            
-            
-            
+            if (gameover == true)
+            {
+                if (numplayers == totinfected) { revenge = true; }
+                foreach (GameObject p in players)
+                {
+                    p.GetComponent<pPlayerMove>().go = true;
+
+                }
+
+                endscr.SetActive(true);
+                Transform endtxt = endscr.transform.GetChild(0);
+                if (revenge) endtxt.GetComponent<Text>().text = "Revenge Success!";
+                else endtxt.GetComponent<Text>().text = "Revenge Failed!";
+
+
+
+
+            }
+
         }
-		
-	}
+    }
 }

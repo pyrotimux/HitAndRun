@@ -1,94 +1,81 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class pDoor : NetworkBehaviour
+namespace HitAndRun.Proto
 {
-    [SyncVar]
-    public bool dooropen = true;
-
-    private float openAng = -90f;
-    public float speed = 10f;
-    public bool rotatingDoor;
-    private GameObject doorcont, doormesh;
-
-
-
-    // Use this for initialization
-    void Start()
+    public abstract class pDoor : pEntityIface
     {
-        doorcont = transform.GetChild(0).gameObject;
-        doormesh = transform.GetChild(0).GetChild(0).gameObject;
+        [SyncVar]
+        public bool dooropen = true;
 
-    }
+        public float speed = 10f;
+        public GameObject doorcont, doormesh;
+        public AudioClip dooreffect;
 
+        public abstract void OpenCloseDoor();
 
-
-    private void OpenerRotate(bool open)
-    {
-        if (open)
+        // Use this for initialization
+        void Start()
         {
-            doorcont.transform.localRotation = Quaternion.Slerp(doorcont.transform.localRotation, Quaternion.Euler(0, openAng, 0), speed * Time.deltaTime);
-        }
-        else
-        {
-            doorcont.transform.localRotation = Quaternion.Slerp(doorcont.transform.localRotation, Quaternion.Euler(0, 0, 0), speed * Time.deltaTime);
-        }
-    }
+            doorcont = transform.GetChild(0).gameObject;
+            doormesh = transform.GetChild(0).GetChild(0).gameObject;
 
-    private void OpenerSideWay(bool open)
-    {
-        if (open)
-        {
-            doormesh.transform.localPosition = Vector3.Lerp(doormesh.transform.localPosition, new Vector3(-1.67f, 0.35f, 0.50f), speed * Time.deltaTime);
-        }
-        else
-        {
-            doormesh.transform.localPosition = Vector3.Lerp(doormesh.transform.localPosition, new Vector3(1.61f, 0.35f, 0.50f), speed * Time.deltaTime);
-        }
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        //if (inzone && Input.GetButtonDown("Interact"))
-        //    CmdChangeDoorStatus();
-
-
-        if (rotatingDoor)
-        {
-            OpenerRotate(dooropen);
-        }
-        else
-        {
-            OpenerSideWay(dooropen);
         }
 
-    }
+        public override void MoveEntity()
+        {
+            OpenCloseDoor();
+        }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //GetComponentInChildren<TextMesh>().text = "Interact with this door.";
-        dooropen = true;
-    }
+        private void playDoorSound()
+        {
+            AudioSource audio = gameObject.transform.GetChild(2).GetComponent<AudioSource>();
+            audio.clip = dooreffect;
+            audio.Play();
+        }
 
-    private void OnTriggerExit(Collider o)
-    {
-        //GetComponentInChildren<TextMesh>().text = "";
-        dooropen = false;
-    }
+        private void OnTriggerEnter(Collider o)
+        {
+            //GetComponentInChildren<TextMesh>().text = "Interact with this door.";
+            pPlayer p = o.gameObject.GetComponent<pPlayer>();
+            bool s = o.name.StartsWith("player");
+            if (s && !p.infected)
+            {
+                dooropen = true;
+                playDoorSound();
 
-    public IEnumerator closeDoor(float time)
-    {
-        yield return new WaitForSeconds(time);
-        dooropen = false;
-    }
-    
-    public void ChangeDoorStatus()
-    {
-        dooropen = !dooropen;
-    }
-    
+            }
+            else if (s && p.infected)
+            {
+                GetComponentInChildren<TextMesh>().text = "Door opening in 2 sec.";
+                StartCoroutine(openDoor(2.0f));
 
+            }
+        }
+
+        private void OnTriggerExit(Collider o)
+        {
+            //GetComponentInChildren<TextMesh>().text = "";
+            dooropen = false;
+            playDoorSound();
+        }
+
+        public IEnumerator openDoor(float time)
+        {
+            yield return new WaitForSeconds(time);
+            dooropen = true;
+            GetComponentInChildren<TextMesh>().text = "";
+            playDoorSound();
+        }
+
+        public void ChangeDoorStatus()
+        {
+            dooropen = !dooropen;
+        }
+
+        
+    }
 }
