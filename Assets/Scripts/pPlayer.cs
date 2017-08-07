@@ -38,7 +38,8 @@ namespace HitAndRun.Proto
         private TextMesh goName;
         private Light lightcnt;
         private int neg = 1;
-
+        private int powerup = 0, countdown = 10;
+        private string powerstr = "";
 
         // Use this for initialization
         public override void Start()
@@ -78,8 +79,11 @@ namespace HitAndRun.Proto
 
             transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = pmat;
 
-            audsrc = transform.GetChild(2).gameObject.GetComponent<AudioSource>();
-            audsrc.clip = evileffect;
+            if (isLocalPlayer) {
+                audsrc = transform.GetChild(2).gameObject.GetComponent<AudioSource>();
+                audsrc.clip = evileffect;
+            }
+            
 
             canvas = GameObject.Find("Canvas");
             infoscr = canvas.transform.GetChild(1).gameObject.transform;
@@ -105,7 +109,7 @@ namespace HitAndRun.Proto
                 pPlayer p = col.gameObject.GetComponent<pPlayer>();
                 p.infected = true;
                 p.CmdPlayerInfected();
-                audsrc.Play();
+                if (isLocalPlayer) audsrc.Play();
             }
             else if (s.StartsWith("key") && !infected)
             { // we can pick up the key as long as we are not infected.
@@ -116,7 +120,7 @@ namespace HitAndRun.Proto
             { // we got infected from world item
                 NetworkServer.Destroy(col.gameObject);
                 CmdPlayerInfected();
-                audsrc.Play();
+                if (isLocalPlayer) audsrc.Play();
             }
             else if (s.StartsWith("gatebarrier") && haskey)
             { // we are destroying gatebarrier as long as we have the key
@@ -137,6 +141,22 @@ namespace HitAndRun.Proto
                 StartCoroutine(moveLvl(2));
 
 
+            }
+            else if (s.StartsWith("spwn") && infected)
+            {
+                NetworkServer.Destroy(col.gameObject);
+            }
+            else if (s.StartsWith("spwn"))
+            {
+                // we handle powerups here.
+                if (isLocalPlayer) {
+                    //if (s.StartsWith("spwnspeed"))
+                    powerstr = "G 10  S";
+                    powerup = 1;
+                }
+                    
+
+                NetworkServer.Destroy(col.gameObject);
             }
 
         }
@@ -162,12 +182,43 @@ namespace HitAndRun.Proto
                 TurnCamera();
             }
 
+            if (Input.GetButtonDown("PowerUp1") && powerup == 1)
+            {
+                playermoves.speed = 13;
+                countdown = 10;
+                InvokeRepeating("PowerSpeed", 0.0f, 1.0f);
+                
+                
+            }
+
+           
+
+        }
+
+        private void PowerSpeed() {
+            if (countdown > 0)
+            {
+                countdown--;
+                powerstr = "G " + countdown + "  S";
+            }
+            else
+            {
+                playermoves.speed = 10;
+                powerstr = "";
+                powerup = 0;
+                countdown = 10;
+                CancelInvoke("PowerSpeed");
+
+            }
+            
         }
 
         private void LateUpdate()
         {
             checkStatus();
 
+            if(isLocalPlayer)
+                infoscr.GetChild(2).gameObject.GetComponent<Text>().text = powerstr;
         }
 
 
@@ -191,7 +242,13 @@ namespace HitAndRun.Proto
                 // turn to bad guy.
                 transform.GetChild(0).gameObject.SetActive(false);
                 transform.GetChild(4).gameObject.SetActive(true);
-                infoscr.GetChild(1).gameObject.GetComponent<Text>().text = "Infected";
+
+                if (isLocalPlayer) {
+                    infoscr.GetChild(1).gameObject.GetComponent<Text>().text = "Infected";
+                    infoscr.GetChild(0).gameObject.GetComponent<Text>().text = "";
+                    infoscr.GetChild(2).gameObject.GetComponent<Text>().text = "G 10  S A";
+                }
+                
 
             }
             else if (!infected && haskey)

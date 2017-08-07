@@ -7,7 +7,8 @@ namespace HitAndRun.Proto
 {
     public abstract class pLootContIface : NetworkBehaviour
     {
-
+        public bool canspawnkey = false;
+        public pSpawner spawner;
         public abstract void OpenChest();
         public abstract void OnChestOpening(Collider o);
         public abstract void OnNoLongerOpening(Collider o);

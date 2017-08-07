@@ -8,13 +8,16 @@ namespace HitAndRun.Proto
 {
     public class pSpawner : NetworkBehaviour
     {
-        public Transform infspwn, spawn1, spawn2, spawn3, spawn4, lkeypos;
+        public Transform infspwn;
+        public Transform lkeypos, lspawnpos;
         public GameObject keyprefab, infectprefab;
+
+        public GameObject[] pSpawnables;
 
         // Use this for initialization
         void Start()
         {
-            CmdSpawn();
+            CmdInfectSpwn();
         }
 
         // Update is called once per frame
@@ -23,10 +26,24 @@ namespace HitAndRun.Proto
 
         }
 
+        public void Spawn(Transform p) {
+            lspawnpos = p;
+            CmdSpawn();
+        }
+
         public void SpawnKey(Transform p)
         {
             lkeypos = p;
             CmdKeySpwn();
+        }
+
+        [Command]
+        void CmdSpawn()
+        {
+            UnityEngine.Random.InitState(System.Environment.TickCount);
+            GameObject spwnitem = (GameObject)Instantiate(pSpawnables[UnityEngine.Random.Range(0, pSpawnables.Length)], new Vector3(lspawnpos.position.x, 10, lspawnpos.position.z), Quaternion.identity);
+            NetworkServer.Spawn(spwnitem);
+
         }
 
 
@@ -42,15 +59,6 @@ namespace HitAndRun.Proto
         {
             GameObject infection = (GameObject)Instantiate(infectprefab, new Vector3(infspwn.position.x, 10, infspwn.position.z), Quaternion.identity);
             NetworkServer.Spawn(infection);
-        }
-
-        [Command]
-        void CmdSpawn()
-        {
-            //lkeypos = spawn1;
-            //CmdKeySpwn();
-            CmdInfectSpwn();
-
         }
     }
 }

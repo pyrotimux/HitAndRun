@@ -12,7 +12,7 @@ namespace HitAndRun.Proto
         public bool gameover = false;
         private int totinfected = 0, numplayers = 0;
         public GameObject endscr;
-        private bool hello = true;
+        private bool delayed = true;
 
         private GameObject pl;
 
@@ -21,12 +21,12 @@ namespace HitAndRun.Proto
         public IEnumerator delayStart(float time)
         {
             yield return new WaitForSeconds(time);
-            hello = false;
+            delayed = false;
         }
 
         void LateUpdate()
         {
-            if (hello)
+            if (delayed)
             {
                 StartCoroutine(delayStart(2)); return;
             }

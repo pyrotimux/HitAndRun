@@ -18,6 +18,13 @@ namespace HitAndRun.Proto
         {
             plight = GetComponentInChildren<Light>();
             plight.enabled = false;
+            StartCoroutine(delayStart(2));
+        }
+
+        public IEnumerator delayStart(float time)
+        {
+            yield return new WaitForSeconds(time);
+            spawner = GameObject.Find("SpawnManager").gameObject.GetComponent<pSpawner>();
         }
 
         public override void OpenChest()
@@ -29,7 +36,11 @@ namespace HitAndRun.Proto
             }
             else
             {
-                GameObject.Find("SpawnManager").gameObject.GetComponent<pSpawner>().SpawnKey(gameObject.transform.GetChild(3).gameObject.transform);
+                if (canspawnkey)
+                    spawner.SpawnKey(gameObject.transform.GetChild(3).gameObject.transform);
+                else
+                    spawner.Spawn(gameObject.transform.GetChild(3).gameObject.transform);
+                // disable loot chest
                 GetComponentInChildren<TextMesh>().text = "";
                 GetComponentInChildren<Light>().enabled = false;
                 Destroy(gameObject.GetComponent<pLootChest>());
