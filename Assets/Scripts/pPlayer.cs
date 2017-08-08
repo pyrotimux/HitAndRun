@@ -78,11 +78,10 @@ namespace HitAndRun.Proto
             GetComponentInChildren<TextMesh>().color = pcolor;
 
             transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = pmat;
-
-            if (isLocalPlayer) {
-                audsrc = transform.GetChild(2).gameObject.GetComponent<AudioSource>();
-                audsrc.clip = evileffect;
-            }
+            
+            audsrc = transform.GetChild(2).gameObject.GetComponent<AudioSource>();
+            audsrc.clip = evileffect;
+            
             
 
             canvas = GameObject.Find("Canvas");
@@ -109,7 +108,7 @@ namespace HitAndRun.Proto
                 pPlayer p = col.gameObject.GetComponent<pPlayer>();
                 p.infected = true;
                 p.CmdPlayerInfected();
-                if (isLocalPlayer) audsrc.Play();
+                audsrc.Play();
             }
             else if (s.StartsWith("key") && !infected)
             { // we can pick up the key as long as we are not infected.
@@ -120,7 +119,7 @@ namespace HitAndRun.Proto
             { // we got infected from world item
                 NetworkServer.Destroy(col.gameObject);
                 CmdPlayerInfected();
-                if (isLocalPlayer) audsrc.Play();
+                audsrc.Play();
             }
             else if (s.StartsWith("gatebarrier") && haskey)
             { // we are destroying gatebarrier as long as we have the key
@@ -187,8 +186,8 @@ namespace HitAndRun.Proto
                 playermoves.speed = 13;
                 countdown = 10;
                 InvokeRepeating("PowerSpeed", 0.0f, 1.0f);
-                
-                
+                powerup = 0;
+
             }
 
            
@@ -205,7 +204,6 @@ namespace HitAndRun.Proto
             {
                 playermoves.speed = 10;
                 powerstr = "";
-                powerup = 0;
                 countdown = 10;
                 CancelInvoke("PowerSpeed");
 

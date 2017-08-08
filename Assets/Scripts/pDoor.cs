@@ -45,8 +45,7 @@ namespace HitAndRun.Proto
             if (s && !p.infected)
             {
                 dooropen = true;
-                if (isLocalPlayer)
-                    playDoorSound();
+                playDoorSound();
 
             }
             else if (s && p.infected)
@@ -61,8 +60,7 @@ namespace HitAndRun.Proto
         {
             //GetComponentInChildren<TextMesh>().text = "";
             dooropen = false;
-            if(isLocalPlayer)
-                playDoorSound();
+            playDoorSound();
         }
 
         public IEnumerator openDoor(float time)
@@ -70,8 +68,7 @@ namespace HitAndRun.Proto
             yield return new WaitForSeconds(time);
             dooropen = true;
             GetComponentInChildren<TextMesh>().text = "";
-            if (isLocalPlayer)
-                playDoorSound();
+            playDoorSound();
         }
 
         public void ChangeDoorStatus()
