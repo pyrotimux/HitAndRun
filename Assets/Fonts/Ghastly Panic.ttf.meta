@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 75e2c7db19991b543bc3165fd06067c9
+timeCreated: 1502250291
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ghastly Panic
+  fontNames:
+  - Ghastly Panic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

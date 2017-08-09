@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: a1c8e34ddf9878741acf96c53ba0c21b
+timeCreated: 1502250387
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Windswept MF
+  fontNames:
+  - Windswept MF
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

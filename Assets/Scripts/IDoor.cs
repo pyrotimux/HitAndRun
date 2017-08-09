@@ -16,6 +16,8 @@ namespace HitAndRun.Proto
         public AudioClip dooreffect;
 
         public abstract void OpenCloseDoor();
+        private int countdown = 3;
+        private bool inzone = false;
 
         // Use this for initialization
         void Start()
@@ -39,41 +41,72 @@ namespace HitAndRun.Proto
 
         private void OnTriggerEnter(Collider o)
         {
+            inzone = true;
             //GetComponentInChildren<TextMesh>().text = "Interact with this door.";
-			Player p = o.gameObject.GetComponent<Player>();
+            Player p = o.gameObject.GetComponent<Player>();
             bool s = o.name.StartsWith("player");
             if (s && !p.infected)
             {
-                dooropen = true;
+                ChangeDoorStatus(true);
                 playDoorSound();
 
             }
             else if (s && p.infected)
             {
-                GetComponentInChildren<TextMesh>().text = "Door opening in 2 sec.";
-                StartCoroutine(openDoor(2.0f));
+                
+                InvokeRepeating("OpenDoorAfterCount", 0.0f, 1.0f);
 
             }
+            
         }
 
         private void OnTriggerExit(Collider o)
         {
+            inzone = false;
             //GetComponentInChildren<TextMesh>().text = "";
-            dooropen = false;
+            ChangeDoorStatus(false);
             playDoorSound();
         }
 
         public IEnumerator openDoor(float time)
         {
             yield return new WaitForSeconds(time);
-            dooropen = true;
+            ChangeDoorStatus(true);
             GetComponentInChildren<TextMesh>().text = "";
             playDoorSound();
         }
 
-        public void ChangeDoorStatus()
+        private void OpenDoorAfterCount()
         {
-            dooropen = !dooropen;
+            if (!inzone) {
+                CancelDoorOpen();
+                return;
+            } 
+
+            if (countdown > 0)
+            {
+                GetComponentInChildren<TextMesh>().text = "Door opening in: " + countdown;
+                countdown--;
+            }
+            else
+            {
+                ChangeDoorStatus(true);
+                playDoorSound();
+                CancelDoorOpen();
+
+            }
+
+        }
+
+        private void CancelDoorOpen() {
+            GetComponentInChildren<TextMesh>().text = "";
+            CancelInvoke("OpenDoorAfterCount");
+            countdown = 3;
+        }
+
+        public void ChangeDoorStatus(bool status)
+        {
+            dooropen = status;
         }
 
         

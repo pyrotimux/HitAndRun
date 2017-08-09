@@ -28,6 +28,9 @@ namespace HitAndRun.Proto
         [SyncVar]
         public bool lighton = true;
 
+        [SyncVar]
+        public bool meshon = true;
+
         public Material pmatblue, pmatred, pmatblack, pmatyellow, pmatgreen, pmat; // materials used to customize player
 
 		private PlayerMovements playermoves; // define how player is moved 
@@ -91,6 +94,8 @@ namespace HitAndRun.Proto
             goName = gameObject.transform.GetChild(1).gameObject.GetComponent<TextMesh>();
             goLight = gameObject.transform.GetChild(3).gameObject.transform;
             lightcnt = goLight.GetComponent<Light>();
+
+            globe_light = GameObject.Find("global_light");
 
             // we can use this to make player invisible by disabling the rendering engine.
             //Renderer[] rends = GetComponentsInChildren<Renderer>();
@@ -200,9 +205,7 @@ namespace HitAndRun.Proto
                     powerup = 0;
                 } else if (powerup == 2) {
                     CmdLightControl();
-                    Renderer[] rends = GetComponentsInChildren<Renderer>();
-                    foreach (Renderer r in rends)
-                        r.enabled = false;
+                    CmdMeshControl();
                     countdown = 10;
                     InvokeRepeating("PowerInvisb", 0.0f, 1.0f);
                     powerup = 0;
@@ -242,11 +245,7 @@ namespace HitAndRun.Proto
             }
             else
             {
-                // we can use this to make player invisible by disabling the rendering engine.
-                Renderer[] rends = GetComponentsInChildren<Renderer>();
-                foreach (Renderer r in rends)
-                    r.enabled = true;
-
+                CmdMeshControl();
                 powerstr = "";
                 countdown = 10;
                 CmdLightControl();
@@ -313,6 +312,15 @@ namespace HitAndRun.Proto
                 lightcnt.enabled = lighton;
             }
 
+            if (meshon && !infected)
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(0).gameObject.SetActive(false);
+            }
+
 
 
         }
@@ -347,7 +355,12 @@ namespace HitAndRun.Proto
         {
             lighton = !lighton;
         }
-
+        
+        [Command]
+        void CmdMeshControl()
+        {
+            meshon = !meshon;
+        }
 
         public IEnumerator moveLvl(float time)
         {

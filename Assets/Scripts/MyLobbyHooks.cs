@@ -5,7 +5,7 @@ using Prototype.NetworkLobby;
 using UnityEngine.Networking;
 using HitAndRun.Proto;
 
-public class pLobbyHook : LobbyHook {
+public class MyLobbyHooks : LobbyHook {
 
     public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer)
     {
