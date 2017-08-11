@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class MenuFunction : MonoBehaviour {
 
-    GameObject godirect;
+    GameObject gomain, godirect, gomatch, goback;
 
-    public void Start()
+    public void InitButton()
     {
-        godirect = GameObject.Find("MainPanel").transform.GetChild(2).gameObject;
+        gomain = GameObject.Find("MainPanel");
+        godirect = gomain.transform.GetChild(2).gameObject;
+        gomatch = gomain.transform.GetChild(1).gameObject;
+        goback = gomain.transform.GetChild(0).GetChild(2).gameObject;
     }
 
     public void Button_Quit()
@@ -17,12 +20,23 @@ public class MenuFunction : MonoBehaviour {
     }
 
     public void Button_Show_DirectPlay() {
-        
+        InitButton();
         godirect.SetActive(true);
+        goback.SetActive(true);
+    }
+
+    public void Button_Show_MatchMake()
+    {
+        InitButton();
+        gomatch.SetActive(true);
+        goback.SetActive(true);
     }
 
     public void Button_Show_Back()
     {
-       
+        InitButton();
+        godirect.SetActive(false);
+        gomatch.SetActive(false);
+        goback.SetActive(false);
     }
 }

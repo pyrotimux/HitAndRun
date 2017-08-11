@@ -285,12 +285,13 @@ namespace HitAndRun.Proto
                 // turn to bad guy.
                 transform.GetChild(0).gameObject.SetActive(false);
                 transform.GetChild(4).gameObject.SetActive(true);
-                playermoves.speed = 9;
+
                 if (isLocalPlayer) {
                     infoscr.GetChild(1).gameObject.GetComponent<Text>().text = "Infected";
                     infoscr.GetChild(0).gameObject.GetComponent<Text>().text = "";
                     infoscr.GetChild(2).gameObject.GetComponent<Text>().text = "G 10  S A";
-                }
+                     playermoves.speed = 9;
+                    }
                 
 
             }
