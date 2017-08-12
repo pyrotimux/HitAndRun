@@ -11,7 +11,7 @@ public class MenuFunction : MonoBehaviour {
         gomain = GameObject.Find("MainPanel");
         godirect = gomain.transform.GetChild(2).gameObject;
         gomatch = gomain.transform.GetChild(1).gameObject;
-        goback = gomain.transform.GetChild(0).GetChild(2).gameObject;
+        goback = gomain.transform.GetChild(0).GetChild(3).gameObject;
     }
 
     public void Button_Quit()

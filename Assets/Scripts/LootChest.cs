@@ -24,7 +24,8 @@ namespace HitAndRun.Proto
         public IEnumerator delayStart(float time)
         {
             yield return new WaitForSeconds(time);
-			spawner = GameObject.Find("SpawnManager").gameObject.GetComponent<SpawnMgr>();
+            GameObject go = GameObject.Find("SpawnManager");
+            if(go != null) spawner = go.GetComponent<SpawnMgr>();
         }
 
         public override void OpenChest()
@@ -36,10 +37,14 @@ namespace HitAndRun.Proto
             }
             else
             {
-                if (canspawnkey)
-                    spawner.SpawnKey(gameObject.transform.GetChild(3).gameObject.transform);
-                else
-                    spawner.Spawn(gameObject.transform.GetChild(3).gameObject.transform);
+                if (spawner != null)
+                {
+                    if (canspawnkey)
+                        spawner.SpawnKey(gameObject.transform.GetChild(3).gameObject.transform);
+                    else
+                        spawner.Spawn(gameObject.transform.GetChild(3).gameObject.transform);
+                }
+                
                 // disable loot chest
                 GetComponentInChildren<TextMesh>().text = "";
                 GetComponentInChildren<Light>().enabled = false;
@@ -53,7 +58,9 @@ namespace HitAndRun.Proto
         }
 
         public override void OnChestOpening(Collider o) {
-            Player p = o.gameObject.GetComponent<Player>();
+            IPlayer p = o.gameObject.GetComponent<Survivor>();
+            if (p == null) p = o.gameObject.GetComponent<Enemy>();
+
             bool s = o.name.StartsWith("player");
             if (s && !p.infected)
             {

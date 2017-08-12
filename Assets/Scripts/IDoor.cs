@@ -43,7 +43,9 @@ namespace HitAndRun.Proto
         {
             inzone = true;
             //GetComponentInChildren<TextMesh>().text = "Interact with this door.";
-            Player p = o.gameObject.GetComponent<Player>();
+            IPlayer p = o.gameObject.GetComponent<Survivor>();
+            if (p == null) p = o.gameObject.GetComponent<Enemy>();
+
             bool s = o.name.StartsWith("player");
             if (s && !p.infected)
             {

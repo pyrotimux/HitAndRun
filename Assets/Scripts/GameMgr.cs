@@ -22,7 +22,17 @@ namespace HitAndRun.Proto
         {
             yield return new WaitForSeconds(time);
             delayed = false;
+            
         }
+
+        public void Start()
+        {
+            GameObject[] chests = GameObject.FindGameObjectsWithTag("chests");
+            UnityEngine.Random.InitState(System.Environment.TickCount);
+            chests[UnityEngine.Random.Range(0, chests.Length)].GetComponent<LootChest>().canspawnkey = true;
+            StartCoroutine(delayStart(2));
+        }
+
 
         void CheckGameStatus() {
             totinfected = 0;
@@ -30,7 +40,9 @@ namespace HitAndRun.Proto
             numplayers = players.Length;
             foreach (GameObject p in players)
             {
-                Player scr = p.GetComponent<Player>();
+                IPlayer scr = p.GetComponent<Survivor>();
+
+                if(scr == null) scr = p.GetComponent<Enemy>();
 
                 if (!scr.infected && !scr.gaterch)
                 {
@@ -71,7 +83,7 @@ namespace HitAndRun.Proto
         {
             if (delayed)
             {
-                StartCoroutine(delayStart(2)); return;
+                return;
             }
 
             CheckGameStatus();

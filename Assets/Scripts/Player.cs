@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace HitAndRun.Proto
 {
-    public class Player : IPlayer
+    public class Player : NetworkBehaviour
     {
 
         [SyncVar]
@@ -46,7 +46,7 @@ namespace HitAndRun.Proto
         public GameObject globe_light;
 
         // Use this for initialization
-        public override void Start()
+        public void Start()
         {
 
             if (isLocalPlayer)
@@ -219,7 +219,7 @@ namespace HitAndRun.Proto
 
         }
 
-        protected void PowerSpeed() {
+        private void PowerSpeed() {
             if (countdown > 0)
             {
                 countdown--;
@@ -236,7 +236,7 @@ namespace HitAndRun.Proto
             
         }
 
-        protected void PowerInvisb()
+        private void PowerInvisb()
         {
             if (countdown > 0)
             {
@@ -256,7 +256,7 @@ namespace HitAndRun.Proto
 
         }
 
-        public void LateUpdate()
+        private void LateUpdate()
         {
             checkStatus();
 
@@ -266,7 +266,7 @@ namespace HitAndRun.Proto
 
 
 
-        public override void checkStatus()
+        public void checkStatus()
         {
 
             if (infected)
