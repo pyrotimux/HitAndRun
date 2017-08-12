@@ -33,16 +33,16 @@ namespace HitAndRun.Proto
 
         public Material pmatblue, pmatred, pmatblack, pmatyellow, pmatgreen, pmat; // materials used to customize player
 
-		private PlayerMovements playermoves; // define how player is moved 
+		protected PlayerMovements playermoves; // define how player is moved 
         public AudioClip evileffect;
-        private AudioSource audsrc;
-        private GameObject canvas;
-        private Transform infoscr, goLight;
-        private TextMesh goName;
-        private Light lightcnt;
-        private int neg = 1;
-        private int powerup = 0, countdown = 10;
-        private string powerstr = "";
+        protected AudioSource audsrc;
+        protected GameObject canvas;
+        protected Transform infoscr, goLight;
+        protected TextMesh goName;
+        protected Light lightcnt;
+        protected int neg = 1;
+        protected int powerup = 0, countdown = 10;
+        protected string powerstr = "";
         public GameObject globe_light;
 
         // Use this for initialization
@@ -155,10 +155,10 @@ namespace HitAndRun.Proto
             {
                 // we handle powerups here.
                 if (isLocalPlayer) {
-                    if (s.StartsWith("spwnspeed")) {
+                    if (s.StartsWith("spwnelec")) {
                         powerstr = "G 10  S";
                         powerup = 1;
-                    }else if (s.StartsWith("spwninvisib"))
+                    }else if (s.StartsWith("spwnfire"))
                     {
                         powerstr = "G 10  A";
                         powerup = 2;
@@ -172,7 +172,7 @@ namespace HitAndRun.Proto
 
         }
 
-        private void TurnCamera() {
+        protected void TurnCamera() {
             Camera.main.transform.Rotate(new Vector3(20, 180, 0));
             Camera.main.transform.position = this.transform.position + (neg * this.transform.forward * 5) + this.transform.up * 3;
             goLight.Rotate(new Vector3(140, -180, 0));
@@ -180,7 +180,7 @@ namespace HitAndRun.Proto
             neg *= -1;
         }
 
-        private void Update()
+        protected void Update()
         {
             if (!isLocalPlayer) return;
             if (Input.GetButtonDown("Hide"))
@@ -219,7 +219,7 @@ namespace HitAndRun.Proto
 
         }
 
-        private void PowerSpeed() {
+        protected void PowerSpeed() {
             if (countdown > 0)
             {
                 countdown--;
@@ -236,7 +236,7 @@ namespace HitAndRun.Proto
             
         }
 
-        private void PowerInvisb()
+        protected void PowerInvisb()
         {
             if (countdown > 0)
             {
@@ -256,7 +256,7 @@ namespace HitAndRun.Proto
 
         }
 
-        private void LateUpdate()
+        public void LateUpdate()
         {
             checkStatus();
 

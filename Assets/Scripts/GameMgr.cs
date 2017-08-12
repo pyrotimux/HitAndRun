@@ -24,12 +24,7 @@ namespace HitAndRun.Proto
             delayed = false;
         }
 
-        void LateUpdate()
-        {
-            if (delayed)
-            {
-                StartCoroutine(delayStart(2)); return;
-            }
+        void CheckGameStatus() {
             totinfected = 0;
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             numplayers = players.Length;
@@ -55,7 +50,7 @@ namespace HitAndRun.Proto
                 if (numplayers == totinfected) { revenge = true; }
                 foreach (GameObject p in players)
                 {
-					p.GetComponent<PlayerMovements>().go = true;
+                    p.GetComponent<PlayerMovements>().go = true;
 
                 }
 
@@ -70,5 +65,18 @@ namespace HitAndRun.Proto
             }
 
         }
+    
+
+        void LateUpdate()
+        {
+            if (delayed)
+            {
+                StartCoroutine(delayStart(2)); return;
+            }
+
+            CheckGameStatus();
+        }
+
+
     }
 }

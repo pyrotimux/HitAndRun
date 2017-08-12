@@ -12,8 +12,7 @@ namespace HitAndRun.Proto
         private GameObject[] players;
         private GameObject target;
         private bool ready = false;
-        public float speed = 16f;
-
+        public float speed = 2f;
 
         // Use this for initialization
         void Start()
@@ -34,8 +33,10 @@ namespace HitAndRun.Proto
 
         public override void MoveEntity()
         {
-            if (ready)
-                transform.localPosition = Vector3.Lerp(transform.localPosition, target.transform.position, speed);
+            if (ready) {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, target.transform.position, speed  * Time.deltaTime);
+            }
+                
         }
     }
 
