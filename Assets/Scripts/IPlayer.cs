@@ -98,6 +98,7 @@ namespace HitAndRun.Proto
             if (!isLocalPlayer) return;
             if (Input.GetButtonDown("Hide"))
             {
+                Debug.Log("Change Light Status");
                 CmdLightControl();
             }
 
@@ -116,27 +117,18 @@ namespace HitAndRun.Proto
 
         public void LateUpdate()
         {
-            PlayerCheckStatus();
-
             if (lighton)
             {
                 goName.text = pname;
-                lightcnt.enabled = lighton;
+                lightcnt.enabled = true;
             }
             else
             {
                 goName.text = "";
-                lightcnt.enabled = lighton;
+                lightcnt.enabled = false;
             }
 
-            if (meshon && !infected)
-            {
-                transform.GetChild(0).gameObject.SetActive(true);
-            }
-            else
-            {
-                transform.GetChild(0).gameObject.SetActive(false);
-            }
+            PlayerCheckStatus();
 
             if (isLocalPlayer)
                 infoscr.GetChild(2).gameObject.GetComponent<Text>().text = powerstr;

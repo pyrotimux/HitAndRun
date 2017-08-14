@@ -43,8 +43,7 @@ namespace HitAndRun.Proto
         {
             inzone = true;
             //GetComponentInChildren<TextMesh>().text = "Interact with this door.";
-            IPlayer p = o.gameObject.GetComponent<Survivor>();
-            if (p == null) p = o.gameObject.GetComponent<Enemy>();
+            Player p = o.gameObject.GetComponent<Player>();
 
             bool s = o.name.StartsWith("player");
             if (s && !p.infected)
@@ -66,8 +65,16 @@ namespace HitAndRun.Proto
         {
             inzone = false;
             //GetComponentInChildren<TextMesh>().text = "";
-            ChangeDoorStatus(false);
-            playDoorSound();
+
+            IPlayer p = o.gameObject.GetComponent<Survivor>();
+            if (p == null) p = o.gameObject.GetComponent<Enemy>();
+
+            bool s = o.name.StartsWith("player");
+            if (s)
+            {
+                ChangeDoorStatus(false);
+                playDoorSound();
+            }
         }
 
         public IEnumerator openDoor(float time)

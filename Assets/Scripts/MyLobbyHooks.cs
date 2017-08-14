@@ -10,7 +10,7 @@ public class MyLobbyHooks : LobbyHook {
     public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer)
     {
         LobbyPlayer lobPlayer = lobbyPlayer.GetComponent<LobbyPlayer>();
-        IPlayer locPlayer = gamePlayer.GetComponent<Survivor>();
+        Player locPlayer = gamePlayer.GetComponent<Player>();
 
         locPlayer.pname = lobPlayer.playerName;
         locPlayer.pcolor = lobPlayer.playerColor;

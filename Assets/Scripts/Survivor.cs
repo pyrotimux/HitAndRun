@@ -12,7 +12,7 @@ namespace HitAndRun.Proto
 
         //private Enemy enemyscript;
         public Material pmatblue, pmatred, pmatblack, pmatyellow, pmatgreen, pmat; // materials used to customize player
-
+        private bool nomore = false;
         public override void InitStart()
         {
             base.InitStart();
@@ -46,10 +46,12 @@ namespace HitAndRun.Proto
 
             transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = pmat;
             
+            
         }
 
         public override void PlayerCheckStatus()
         {
+            if (nomore) return;
             if (infected)
             {
                 if (haskey)
@@ -70,14 +72,17 @@ namespace HitAndRun.Proto
                 //enemyscript = GetComponent<Enemy>();
                 //enemyscript.enabled = true;
 
-                Enemy enm = gameObject.AddComponent<Enemy>();
-                enm.pname = pname;
-                enm.pcolor = pcolor;
-                enm.evileffect = evileffect;
+                //Enemy enm = gameObject.AddComponent<Enemy>();
+                //enm.pname = pname;
+                //enm.pcolor = pcolor;
+                //enm.evileffect = evileffect;
+                gameObject.GetComponent<Enemy>().PlayerGotInfected(pname,pcolor);
 
-                this.enabled = false;
-                Destroy(this);
+                gameObject.GetComponentInChildren<HeartBeat>().canplay = false;
 
+                // this.enabled = false;
+                // Destroy(this);
+                nomore = true;
                 if (isLocalPlayer)
                 {
                     infoscr.GetChild(1).gameObject.GetComponent<Text>().text = "Infected";
@@ -85,8 +90,7 @@ namespace HitAndRun.Proto
                     infoscr.GetChild(2).gameObject.GetComponent<Text>().text = "G 10  S A";
                     playermoves.speed = 9;
                 }
-
-
+                
             }
             else if (!infected && haskey)
             {
@@ -95,11 +99,28 @@ namespace HitAndRun.Proto
                 o.GetComponent<Renderer>().material.color = Color.green;
             }
 
+            if (meshon && haskey && !infected)
+            {
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(5).gameObject.SetActive(true);
+
+            }
+            else if (meshon && !infected)
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(5).gameObject.SetActive(false);
+            }
+
 
         }
 
         public override void PlayerCollisionEnter(Collision col, string s)
         {
+            if (nomore) return;
             if (infected) return;
 
             if (s.StartsWith("key") && !infected)
@@ -158,6 +179,7 @@ namespace HitAndRun.Proto
 
         public override void PlayerKeyDown()
         {
+            if (nomore) return;
             if (infected) return;
 
             if (Input.GetButtonDown("PowerUp1"))

@@ -58,13 +58,12 @@ namespace HitAndRun.Proto
         }
 
         public override void OnChestOpening(Collider o) {
-            IPlayer p = o.gameObject.GetComponent<Survivor>();
-            if (p == null) p = o.gameObject.GetComponent<Enemy>();
+            Player p = o.gameObject.GetComponent<Player>();
 
             bool s = o.name.StartsWith("player");
             if (s && !p.infected)
             {
-                InvokeRepeating("OpenChest", 0.0f, 2.0f);
+                InvokeRepeating("OpenChest", 0.0f, 1.0f);
                 countdown = defaultvar;
                 plight.enabled = true;
             }

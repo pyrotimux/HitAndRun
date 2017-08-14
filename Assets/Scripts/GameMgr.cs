@@ -40,9 +40,7 @@ namespace HitAndRun.Proto
             numplayers = players.Length;
             foreach (GameObject p in players)
             {
-                IPlayer scr = p.GetComponent<Survivor>();
-
-                if(scr == null) scr = p.GetComponent<Enemy>();
+                Player scr = p.GetComponent<Player>();
 
                 if (!scr.infected && !scr.gaterch)
                 {

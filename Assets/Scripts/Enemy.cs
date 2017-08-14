@@ -9,10 +9,24 @@ namespace HitAndRun.Proto
 {
     public class Enemy : IPlayer
     {
+        private Light glblght;
+
+        public void PlayerGotInfected(string pname, Color pcolor) {
+            this.pname = pname;
+            this.pcolor = pcolor;
+
+            infected = true;
+            if (isLocalPlayer)
+            {
+                glblght = GameObject.Find("global_sun").GetComponent<Light>();
+                glblght.enabled = true;
+            }
+
+        }
+
         public override void InitStart()
         {
             base.InitStart();
-            infected = true;
         }
 
         public override void PlayerCheckStatus()
@@ -21,6 +35,8 @@ namespace HitAndRun.Proto
 
         public override void PlayerCollisionEnter(Collision col, string s)
         {
+            if (!infected) return;
+
             if (s.StartsWith("player") && infected)
             { // we are infecting other players 
                 Survivor p = col.gameObject.GetComponent<Survivor>();
@@ -36,6 +52,8 @@ namespace HitAndRun.Proto
 
         public override void PlayerKeyDown()
         {
+            if (!infected) return;
+
             if (Input.GetButtonDown("PowerUp1"))
             {
 

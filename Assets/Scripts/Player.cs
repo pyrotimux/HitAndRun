@@ -43,7 +43,7 @@ namespace HitAndRun.Proto
         protected int neg = 1;
         protected int powerup = 0, countdown = 10;
         protected string powerstr = "";
-        public GameObject globe_light;
+        public GameObject globe_light, globe_sun;
 
         // Use this for initialization
         public void Start()
@@ -96,6 +96,7 @@ namespace HitAndRun.Proto
             lightcnt = goLight.GetComponent<Light>();
 
             globe_light = GameObject.Find("global_light");
+            globe_sun = GameObject.Find("global_sun");
 
             // we can use this to make player invisible by disabling the rendering engine.
             //Renderer[] rends = GetComponentsInChildren<Renderer>();
@@ -258,7 +259,7 @@ namespace HitAndRun.Proto
 
         private void LateUpdate()
         {
-            checkStatus();
+            PlayerCheckStatus();
 
             if(isLocalPlayer)
                 infoscr.GetChild(2).gameObject.GetComponent<Text>().text = powerstr;
@@ -266,7 +267,7 @@ namespace HitAndRun.Proto
 
 
 
-        public void checkStatus()
+        public void PlayerCheckStatus()
         {
 
             if (infected)
@@ -286,20 +287,37 @@ namespace HitAndRun.Proto
                 transform.GetChild(0).gameObject.SetActive(false);
                 transform.GetChild(4).gameObject.SetActive(true);
 
+                gameObject.GetComponentInChildren<HeartBeat>().canplay = false;
+
                 if (isLocalPlayer) {
                     infoscr.GetChild(1).gameObject.GetComponent<Text>().text = "Infected";
                     infoscr.GetChild(0).gameObject.GetComponent<Text>().text = "";
                     infoscr.GetChild(2).gameObject.GetComponent<Text>().text = "G 10  S A";
-                     playermoves.speed = 9;
-                    }
+                    playermoves.speed = 9;
+                    globe_sun.GetComponent<Light>().enabled = true;
+                }
                 
 
             }
-            else if (!infected && haskey)
+
+            if (meshon && haskey && !infected)
             {
                 Transform o = transform.GetChild(2);
                 o.GetComponent<MeshRenderer>().enabled = true;
                 o.GetComponent<Renderer>().material.color = Color.green;
+
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(5).gameObject.SetActive(true);
+
+            }
+            else if (meshon && !infected)
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(5).gameObject.SetActive(false);
             }
 
             if (lighton)
@@ -321,9 +339,7 @@ namespace HitAndRun.Proto
             {
                 transform.GetChild(0).gameObject.SetActive(false);
             }
-
-
-
+            
         }
 
 

@@ -13,11 +13,13 @@ namespace HitAndRun.Proto
         public GameObject keyprefab, infectprefab;
 
         public GameObject[] pSpawnables;
+        private int spawncount;
 
         // Use this for initialization
         void Start()
         {
             CmdInfectSpwn();
+            spawncount = UnityEngine.Random.Range(0, pSpawnables.Length);
         }
 
         // Update is called once per frame
@@ -40,10 +42,11 @@ namespace HitAndRun.Proto
         [Command]
         void CmdSpawn()
         {
-            UnityEngine.Random.InitState(System.Environment.TickCount);
-            GameObject spwnitem = (GameObject)Instantiate(pSpawnables[UnityEngine.Random.Range(0, pSpawnables.Length)], new Vector3(lspawnpos.position.x, 10, lspawnpos.position.z), Quaternion.identity);
+            GameObject spwnitem = (GameObject)Instantiate(pSpawnables[spawncount], new Vector3(lspawnpos.position.x, 10, lspawnpos.position.z), Quaternion.identity);
             NetworkServer.Spawn(spwnitem);
 
+            if (spawncount == 2) spawncount = 0;
+            else spawncount++;
         }
 
 
