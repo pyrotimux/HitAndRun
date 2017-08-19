@@ -343,25 +343,25 @@ namespace HitAndRun.Proto
         }
 
 
-        [Server]
+        [Command]
         void CmdPlayerGotKey()
         {
             haskey = true;
         }
 
-        [Server]
+        [Command]
         void CmdPlayerDropKey()
         {
             haskey = false;
         }
 
-        [Server]
+        [Command]
         void CmdPlayerInfected()
         {
             infected = true;
         }
 
-        [Server]
+        [Command]
         void CmdPlayerReachGate()
         {
             gaterch = true;
