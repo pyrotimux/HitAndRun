@@ -44,6 +44,7 @@ namespace HitAndRun.Proto
         protected int powerup = 0, countdown = 10;
         protected string powerstr = "";
         public GameObject globe_light, globe_sun;
+        private bool firstchange = true;
 
         // Use this for initialization
         public void Start()
@@ -156,13 +157,18 @@ namespace HitAndRun.Proto
             {
                 // we handle powerups here.
                 if (isLocalPlayer) {
-                    if (s.StartsWith("spwnelec")) {
+                    if (s.StartsWith("spwnelec"))
+                    {
                         powerstr = "G 10  S";
                         powerup = 1;
-                    }else if (s.StartsWith("spwnfire"))
+                    }
+                    else if (s.StartsWith("spwnfire"))
                     {
                         powerstr = "G 10  A";
                         powerup = 2;
+                    }
+                    else if (s.StartsWith("spwnstory")) {
+                        infoscr.GetChild(4).gameObject.SetActive(true);
                     }
 
                 }
@@ -196,15 +202,18 @@ namespace HitAndRun.Proto
 
             if (Input.GetButtonDown("PowerUp1") )
             {
-
+                HideStory();
                 if (powerup == 0) return;
-                    
-                if (powerup == 1) {
+
+                if (powerup == 1)
+                {
                     playermoves.speed = 13;
                     countdown = 10;
                     InvokeRepeating("PowerSpeed", 0.0f, 1.0f);
                     powerup = 0;
-                } else if (powerup == 2) {
+                }
+                else if (powerup == 2)
+                {
                     CmdLightControl();
                     CmdMeshControl();
                     countdown = 10;
@@ -270,7 +279,7 @@ namespace HitAndRun.Proto
         public void PlayerCheckStatus()
         {
 
-            if (infected)
+            if (infected && firstchange)
             {
                 if (haskey)
                 {
@@ -288,11 +297,15 @@ namespace HitAndRun.Proto
                 transform.GetChild(4).gameObject.SetActive(true);
 
                 gameObject.GetComponentInChildren<HeartBeat>().canplay = false;
-
+                firstchange = false;
                 if (isLocalPlayer) {
                     infoscr.GetChild(1).gameObject.GetComponent<Text>().text = "Infected";
                     infoscr.GetChild(0).gameObject.GetComponent<Text>().text = "";
                     infoscr.GetChild(2).gameObject.GetComponent<Text>().text = "G 10  S A";
+                    infoscr.GetChild(3).gameObject.SetActive(true);
+
+                    StartCoroutine(HideBloods(0.3f));
+
                     playermoves.speed = 9;
                     globe_sun.GetComponent<Light>().enabled = true;
                 }
@@ -395,7 +408,31 @@ namespace HitAndRun.Proto
             endscr.SetActive(true);
             Transform endtxt = endscr.transform.GetChild(0);
             if (gaterch) endtxt.GetComponent<Text>().text = "You Win!";
+
+            StartCoroutine(CamFollowEnable(10));
         }
 
+        public IEnumerator CamFollowEnable(float time)
+        {
+            yield return new WaitForSeconds(time);
+            GameObject canvas = GameObject.Find("Canvas");
+            GameObject endscr = canvas.transform.GetChild(0).gameObject;
+
+            endscr.SetActive(false);
+            CameraFollow camfollow =  Camera.main.GetComponent<CameraFollow>();
+
+            camfollow.StartFollowing();
+        }
+
+        public IEnumerator HideBloods(float time)
+        {
+            yield return new WaitForSeconds(time);
+            infoscr.GetChild(3).gameObject.SetActive(false);
+        }
+
+        public void HideStory()
+        {
+            infoscr.GetChild(4).gameObject.SetActive(false);
+        }
     }
 }

@@ -70,10 +70,16 @@ namespace HitAndRun.Proto
         }
 
         public override void OnNoLongerOpening(Collider o) {
-            GetComponentInChildren<TextMesh>().text = "";
-            countdown = defaultvar;
-            CancelInvoke();
-            plight.enabled = false;
+            Player p = o.gameObject.GetComponent<Player>();
+
+            bool s = o.name.StartsWith("player");
+            if (s)
+            {
+                GetComponentInChildren<TextMesh>().text = "";
+                countdown = defaultvar;
+                CancelInvoke();
+                plight.enabled = false;
+            }
         }
 
         

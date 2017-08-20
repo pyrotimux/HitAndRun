@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Prototype.NetworkLobby;
 
 
 namespace HitAndRun.Proto
@@ -18,7 +20,7 @@ namespace HitAndRun.Proto
 
         public bool revenge = false;
 
-        public IEnumerator delayStart(float time)
+        public IEnumerator DelayStart(float time)
         {
             yield return new WaitForSeconds(time);
             delayed = false;
@@ -30,7 +32,7 @@ namespace HitAndRun.Proto
             GameObject[] chests = GameObject.FindGameObjectsWithTag("chests");
             UnityEngine.Random.InitState(System.Environment.TickCount);
             chests[UnityEngine.Random.Range(0, chests.Length)].GetComponent<LootChest>().canspawnkey = true;
-            StartCoroutine(delayStart(2));
+            StartCoroutine(DelayStart(2));
         }
 
 
@@ -68,14 +70,22 @@ namespace HitAndRun.Proto
                 Transform endtxt = endscr.transform.GetChild(0);
                 if (revenge) endtxt.GetComponent<Text>().text = "Revenge Success!";
                 else endtxt.GetComponent<Text>().text = "Revenge Failed!";
-
+                StartCoroutine(EndGame(5));
 
 
 
             }
 
         }
-    
+
+        public IEnumerator EndGame(float time)
+        {
+            yield return new WaitForSeconds(time);
+            GameObject.Find("LobbyManager").GetComponent<LobbyManager>().GoBackButton();
+
+
+        }
+
 
         void LateUpdate()
         {

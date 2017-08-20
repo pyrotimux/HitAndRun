@@ -25,7 +25,7 @@ namespace HitAndRun.Proto
         {
             yield return new WaitForSeconds(time);
             players = GameObject.FindGameObjectsWithTag("Player");
-            //UnityEngine.Random.InitState(System.Environment.TickCount);
+            UnityEngine.Random.InitState(System.Environment.TickCount);
             target = players[UnityEngine.Random.Range(0, players.Length)];
             ready = true;
         }
