@@ -70,7 +70,7 @@ namespace HitAndRun.Proto
                 Transform endtxt = endscr.transform.GetChild(0);
                 if (revenge) endtxt.GetComponent<Text>().text = "Revenge Success!";
                 else endtxt.GetComponent<Text>().text = "Revenge Failed!";
-                StartCoroutine(EndGame(5));
+                StartCoroutine(EndGame(10));
 
 
 
